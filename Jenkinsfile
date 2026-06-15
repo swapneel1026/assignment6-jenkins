@@ -1,5 +1,5 @@
 @Library('ansible_mongo_install') _
-
+def config
 pipeline {
     agent any
 
@@ -12,7 +12,17 @@ pipeline {
                 }
             }
         }
-
+stage('Debug Config') {
+    steps {
+        script {
+            echo "CONFIG = ${config}"
+            echo "GIT = ${config.GIT}"
+            echo "URL = ${config.GIT?.URL}"
+            echo "BRANCH = ${config.GIT?.BRANCH}"
+            echo "ANSIBLE = ${config.ANSIBLE}"
+        }
+    }
+}
         stage('Checkout Code') {
             steps {
                 script {
